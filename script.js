@@ -16,16 +16,17 @@ const showTypeOf = function(variable) {
 }
 
 const isNumber = function(num) {
-    return !isNaN(parseFloat(num) && isFinite(num));
+    return !isNaN(parseFloat(num)) && isFinite(num) && (num > 0);
 }
+
 
 const asking = function() {
     title = prompt('Как называется ваш проект?', "Калькулятор вёрстки")
     screens = prompt('Какие типы экранов нужно разработать?', "Простые, сложные, адаптивные");
     do {
-        screenPrice = prompt('Сколько будет стоить данная работа?');
+        screenPrice = +prompt('Сколько будет стоить данная работа?');
     }
-    while ((!isNumber(screenPrice)) && (!isNumber(screenPrice) !== null))
+    while ((!isNumber(screenPrice) && (isNumber(screenPrice) !== null)))
     adaptive = confirm('Нужен ли адаптив на сайте?');
 }
 
@@ -92,4 +93,6 @@ console.log(adaptive);
 console.log(title)
 console.log('allServicePrices', allServicePrices)
 console.log(servicePercentPrice);
+console.log(fullPrice);
+
 
