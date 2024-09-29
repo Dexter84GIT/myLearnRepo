@@ -1,14 +1,13 @@
 'use strict'
 
-let title// = prompt('Как называется ваш проект?', "Калькулятор вёрстки");
-let screens// = prompt('Какие типы экранов нужно разработать?', "Простые, сложные, адаптивные");
-let screenPrice// = +prompt('Сколько будет стоить данная работа?', 150000);
-let adaptive// = confirm('Нужен ли адаптив на сайте?');
-
+let title;
+let screens;
+let screenPrice;
+let adaptive;
 let rollback = 15;
 let allServicePrices;
 let fullPrice;
-let servicePercentPrice = fullPrice * (rollback/100);
+let servicePercentPrice;
 let service1;
 let service2;
 
@@ -21,35 +20,35 @@ const isNumber = function(num) {
 }
 
 const asking = function() {
-
-            title = prompt('Как называется ваш проект?', "Калькулятор вёрстки");
-
-            screens = prompt('Какие типы экранов нужно разработать?', "Простые, сложные, адаптивные");
-
-            screenPrice = prompt('Сколько будет стоить данная работа?');
-            while (!isNumber(screenPrice)) {
-                screenPrice = prompt('Сколько будет стоить данная работа?');
-            }
-
-            adaptive = confirm('Нужен ли адаптив на сайте?');
+    title = prompt('Как называется ваш проект?', "Калькулятор вёрстки")
+    screens = prompt('Какие типы экранов нужно разработать?', "Простые, сложные, адаптивные");
+    do {
+        screenPrice = prompt('Сколько будет стоить данная работа?');
+    }
+    while ((!isNumber(screenPrice)) && (!isNumber(screenPrice) !== null))
+    adaptive = confirm('Нужен ли адаптив на сайте?');
 }
 
 const getAllServicePrices = function() {
     let sum = 0
 
-    for (let i = 0; i < 2; i++) {
+  for (let i = 0; i < 2; i++) {
         if (i === 0) {
             service1 = prompt('Какой дополнительный тип услуги нужен?');
         } else if (i === 1) {
             service2 = prompt('Какой дополнительный тип услуги нужен?');
         }
-        sum += +prompt('Сколько это будет стоить?')
-    }
+            do {
+                sum += +prompt('Сколько это будет стоить?');
+            }
+            while ((!isNumber(sum)) && (!isNumber(sum) !== null))
+            }
     return sum;
 }
 
+
 function getFullPrice() {
-    return screenPrice + allServicePrices;
+    return +screenPrice + +allServicePrices;
 }
 
 
@@ -84,6 +83,7 @@ title = getTitle();
 
 showTypeOf(title);
 showTypeOf(screenPrice);
+showTypeOf(allServicePrices);
 showTypeOf(adaptive);
 console.log(getRollBackMessage(fullPrice));
 console.log(screens);
