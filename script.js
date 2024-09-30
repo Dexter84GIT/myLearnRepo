@@ -32,19 +32,18 @@ const asking = function() {
 
 const getAllServicePrices = function() {
     let sum = 0;
-    let str = "Сколько это будет стоить?";
     let price = 0;
 
   for (let i = 0; i < 2; i++) {
         if (i === 0) {
             service1 = prompt('Какой дополнительный тип услуги нужен?', 'Метрика');
-            price = 2000;
+            +price;
         } else if (i === 1) {
             service2 = prompt('Какой дополнительный тип услуги нужен?', 'Попап');
-            price = 3000;
+            +price;
         }
             do {
-                sum = sum += +prompt(str, price);
+                sum = sum += +prompt("Сколько это будет стоить?", price);
             }
             while ((!isNumber(sum)) && (!isNumber(sum) !== null))
             }
