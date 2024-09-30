@@ -31,16 +31,20 @@ const asking = function() {
 }
 
 const getAllServicePrices = function() {
-    let sum = 0
+    let sum = 0;
+    let str = "Сколько это будет стоить?";
+    let price = 0;
 
   for (let i = 0; i < 2; i++) {
         if (i === 0) {
-            service1 = prompt('Какой дополнительный тип услуги нужен?');
+            service1 = prompt('Какой дополнительный тип услуги нужен?', 'Метрика');
+            price = 2000;
         } else if (i === 1) {
-            service2 = prompt('Какой дополнительный тип услуги нужен?');
+            service2 = prompt('Какой дополнительный тип услуги нужен?', 'Попап');
+            price = 3000;
         }
             do {
-                sum += +prompt('Сколько это будет стоить?');
+                sum = sum += +prompt(str, price);
             }
             while ((!isNumber(sum)) && (!isNumber(sum) !== null))
             }
@@ -85,6 +89,7 @@ title = getTitle();
 showTypeOf(title);
 showTypeOf(screenPrice);
 showTypeOf(allServicePrices);
+showTypeOf(fullPrice);
 showTypeOf(adaptive);
 console.log(getRollBackMessage(fullPrice));
 console.log(screens);
