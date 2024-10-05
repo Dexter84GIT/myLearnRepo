@@ -9,51 +9,54 @@ const appData = {
     allServicePrices: 0,
     fullPrice: 0,
     servicePercentPrice: 0,
-    service1: '',
-    service2: '',
+    services: {},
     start: function () {
         appData.asking();
-        appData.allServicePrices = appData.getAllServicePrices();
-        appData.fullPrice = appData.getFullPrice();
-        appData.servicePercentPrice = appData.getServicePercentPrices();
-        appData.title = appData.getTitle();
+        appData.getAllServicePrices();
+        appData.getFullPrice();
+        appData.getServicePercentPrices();
+        appData.getTitle();
         appData.logger();
     },
     isNumber: function(num) {
         return !isNaN(parseFloat(num)) && isFinite(num) && (num > 0);
     },
-    getAllServicePrices: function() {
-        let sum = 0;
-        let price;
-    
-      for (let i = 0; i < 2; i++) {
-            if (i === 0) {
-                appData.service1 = prompt('Какой дополнительный тип услуги нужен?');
-            } else if (i === 1) {
-                appData.service2 = prompt('Какой дополнительный тип услуги нужен?');
-            }
-    
-            do {
-                price = prompt("Сколько это будет стоить?");
-            }
-            while (!appData.isNumber(price))
-    
-            sum += +price;
+    asking: function() {
+        appData.title = prompt('Как называется ваш проект?', "Калькулятор вёрстки")
+        appData.screens = prompt('Какие типы экранов нужно разработать?', "Простые, сложные, адаптивные");
+        do {
+            appData.screenPrice = +prompt('Сколько будет стоить данная работа?');
         }
-        return sum;
+        while ((!appData.isNumber(appData.screenPrice) && (appData.isNumber(appData.screenPrice) !== null)))
+
+        appData.adaptive = confirm('Нужен ли адаптив на сайте?');    
+
+        for (let i = 0; i < 2; i++) {
+            let name = prompt('Какой дополнительный тип услуги нужен?');
+            let price = 0;
+        
+                do {
+                    price = prompt("Сколько это будет стоить?");
+                }
+                while (!appData.isNumber(price))
+                    
+                appData.services[name] = +price;
+
+            }
+    },
+    getAllServicePrices: function() {
+        for(let key in appData.services) {
+            appData.allServicePrices += appData.services[key]
+        }
     },
     getFullPrice: function() {
-        return +appData.screenPrice + +appData.allServicePrices;
+        appData.fullPrice =  +appData.screenPrice + +appData.allServicePrices;
     },
     getServicePercentPrices: function() {
-        return appData.fullPrice - (appData.fullPrice * (appData.rollback/100))
+        appData.servicePercentPrice =  appData.fullPrice - (appData.fullPrice * (appData.rollback/100))
     },
     getTitle: function() {
-        let clearTitle = appData.title.trimStart()
-        let firstLetter = clearTitle.charAt(0);
-        let secondLetter = clearTitle.slice(1);
-        let fullLetter = firstLetter.toUpperCase() + secondLetter.toLowerCase();
-        return fullLetter;
+        appData.title = appData.title.trim()[0].toUpperCase() + appData.title.trim().substr(1).toLowerCase()
     },
     getRollBackMessage: function(price) {
         if (price >= 30000){
@@ -66,24 +69,10 @@ const appData = {
             return 'Что то пошло не так'
         }
    },
-    asking: function() {
-        appData.title = prompt('Как называется ваш проект?', "Калькулятор вёрстки")
-        appData.screens = prompt('Какие типы экранов нужно разработать?', "Простые, сложные, адаптивные");
-        do {
-            appData.screenPrice = +prompt('Сколько будет стоить данная работа?');
-        }
-        while ((!appData.isNumber(appData.screenPrice) && (appData.isNumber(appData.screenPrice) !== null)))
-            appData.adaptive = confirm('Нужен ли адаптив на сайте?');
-    },
     logger: function() {
-        console.log(appData.title);
-        console.log(appData.tifullPricetle);
+        console.log(appData.fullPrice);
         console.log(appData.servicePercentPrice);
-        for (let key in appData) {  // цикл for in перебирает объект столько раз, сколько в нем ключей
-            console.log('Ключ: ' + key + ' ' + 'Значение: ' + appData[key]);
-        }
     }
-
 }
 appData.start();
 
