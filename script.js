@@ -11,7 +11,14 @@ const appData = {
     servicePercentPrice: 0,
     service1: '',
     service2: '',
-
+    start: function () {
+        appData.asking();
+        appData.allServicePrices = appData.getAllServicePrices();
+        appData.fullPrice = appData.getFullPrice();
+        appData.servicePercentPrice = appData.getServicePercentPrices();
+        appData.title = appData.getTitle();
+        appData.logger();
+    },
     isNumber: function(num) {
         return !isNaN(parseFloat(num)) && isFinite(num) && (num > 0);
     },
@@ -32,7 +39,7 @@ const appData = {
             while (!appData.isNumber(price))
     
             sum += +price;
-    }
+        }
         return sum;
     },
     getFullPrice: function() {
@@ -59,8 +66,7 @@ const appData = {
             return 'Что то пошло не так'
         }
    },
-   start: function() {
-    appData.asking = function() {
+    asking: function() {
         appData.title = prompt('Как называется ваш проект?', "Калькулятор вёрстки")
         appData.screens = prompt('Какие типы экранов нужно разработать?', "Простые, сложные, адаптивные");
         do {
@@ -69,8 +75,7 @@ const appData = {
         while ((!appData.isNumber(appData.screenPrice) && (appData.isNumber(appData.screenPrice) !== null)))
             appData.adaptive = confirm('Нужен ли адаптив на сайте?');
     },
-    appData.asking(),
-    appData.logger = function() {
+    logger: function() {
         console.log(appData.title);
         console.log(appData.tifullPricetle);
         console.log(appData.servicePercentPrice);
@@ -78,12 +83,7 @@ const appData = {
             console.log('Ключ: ' + key + ' ' + 'Значение: ' + appData[key]);
         }
     }
-    appData.logger();
-    appData.allServicePrices = appData.getAllServicePrices();
-    appData.fullPrice = appData.getFullPrice();
-    appData.servicePercentPrice = appData.getServicePercentPrices();
-    appData.title = appData.getTitle();
-    }
+
 }
 appData.start();
 
