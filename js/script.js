@@ -1,24 +1,20 @@
 'use strict'
 
 const siteTitle = (document.getElementsByTagName('h1')[0]);
-console.log(siteTitle);
-const pageButtons = document.getElementsByClassName('handler_btn')
-console.log(pageButtons);
+const pageButtonStart = document.getElementsByClassName('handler_btn')[0]
+const pageButtonReset = document.getElementsByClassName('handler_btn')[1]
 const plusButton = document.querySelector('.screen-btn')
-console.log(plusButton);
 const percentItems = document.querySelectorAll('.other-items.percent')
-console.log(percentItems);
 const numberItems = document.querySelectorAll('.other-items.number')
-console.log(numberItems);
 const pageRange = document.querySelector('.rollback input[type=range]')
-console.log(pageRange);
 const pageRangeValue = document.querySelector('.rollback span.range-value')
-console.log(pageRangeValue);
-const pageTotalInputs =  document.getElementsByClassName('total-input')
-for (const elements of pageTotalInputs)
-    console.log(elements);
+const pageTotalInput1 =  document.getElementsByClassName('total-input')[0]
+const pageTotalInput2 =  document.getElementsByClassName('total-input')[1]
+const pageTotalInput3 =  document.getElementsByClassName('total-input')[2]
+const pageTotalInput4 =  document.getElementsByClassName('total-input')[3]
+const pageTotalInput5 =  document.getElementsByClassName('total-input')[4]
 let pageScreen = document.querySelectorAll('.screen')
-console.log(pageScreen);
+
 
 const appData = {
     title: '',
