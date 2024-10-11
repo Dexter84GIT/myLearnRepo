@@ -8,11 +8,11 @@ const percentItems = document.querySelectorAll('.other-items.percent')
 const numberItems = document.querySelectorAll('.other-items.number')
 const pageRange = document.querySelector('.rollback input[type=range]')
 const pageRangeValue = document.querySelector('.rollback span.range-value')
-const pageTotalInput1 =  document.getElementsByClassName('total-input')[0]
-const pageTotalInput2 =  document.getElementsByClassName('total-input')[1]
-const pageTotalInput3 =  document.getElementsByClassName('total-input')[2]
-const pageTotalInput4 =  document.getElementsByClassName('total-input')[3]
-const pageTotalInput5 =  document.getElementsByClassName('total-input')[4]
+const pageInputTotal =  document.getElementsByClassName('total-input')[0]
+const pageInputTotalCount =  document.getElementsByClassName('total-input')[1]
+const pageInputTotalCountOther =  document.getElementsByClassName('total-input')[2]
+const pageInputTotalFullCount =  document.getElementsByClassName('total-input')[3]
+const pageInputTotalCountRollback =  document.getElementsByClassName('total-input')[4]
 let pageScreen = document.querySelectorAll('.screen')
 
 
