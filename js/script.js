@@ -57,7 +57,6 @@ const appData = {
         appData.addServices();
         appData.addPrices();
         appData.logger();
-//        console.log(appData);
         appData.showResult();
     },
     rollbackRange: function () {
@@ -113,6 +112,8 @@ const appData = {
     },
     addPrices: function () {
         pageInputTotalScreens.value = null;
+        let inputs = document.querySelectorAll('.screen .main-controls__input input');
+        let inputData = null;
         for (let screen of appData.screens) {
             appData.screenPrice += +screen.price
         }
@@ -122,55 +123,15 @@ const appData = {
         for (let key in appData.servicesPercent) {
             appData.servicePricesPercent += appData.screenPrice * (appData.servicesPercent[key] / 100)
         }
-
-
-
-let inputs = document.querySelectorAll('.screen .main-controls__input input');
-let inputData = null;
-for (let i = 0; i < inputs.length; i++) {
-  let input = inputs[i];
-  inputData += +input.value;
-}
-
-pageInputTotalScreens.value = inputData
-
-
-
-
-
-
-        
-//        pageInputTotalScreens.value = 0;
-//
-//        let screensSum = arr.reduce((acc, number) => acc + number, 0)
-
-//        pageInputTotalScreens.textContent += inputValue
-//        console.dir(arr);
-//       console.log(inputValue);
-        
-        
-
-//       for (let i = 0; i < testInput.length; i++) {
-//           sum += +(testInput[i].textContent)
-//           pageInputTotalScreens.value = sum
-//           console.log(arr);
-//           console.log(testInput, typeof testInput);
-//           console.dir(testInput);
-//       }
+        for (let i = 0; i < inputs.length; i++) {
+            let input = inputs[i];
+            inputData += +input.value;
+        }
+        pageInputTotalScreens.value = inputData;
         appData.fullPrice = +appData.screenPrice + appData.servicePricesNumber + appData.servicePricesPercent;
         pageInputTotalCountRollback.value = appData.fullPrice - (appData.fullPrice * (appData.rollback / 100))
     },
     logger: function () {
-
-    //    console.dir(testInput);
-
-
-        
-//        console.log(appData.fullPrice);
-//        console.log(appData.servicePercentPrice);
-//        console.log(addScreens.count)
-
-
 
     }
 }
