@@ -26,31 +26,57 @@ const appData = {
     screens: [],
     screenPrice: 0,
     adaptive: true,
-    rollback: 15,
+    rollback: 0,
     servicePricesPercent: 0,
     servicePricesNumber: 0,
     fullPrice: 0,
     servicePercentPrice: 0,
     servicesPercent: {},
     servicesNumber: {},
+    emptyFields: false,
     init: function () {
         appData.addTitle();
         appData.noWay();
-        pageButtonStart.addEventListener('click', appData.start)
+        pageButtonStart.addEventListener('click', appData.noWay)
         plusButton.addEventListener('click', appData.addScreenBlock)
         pageRange.addEventListener('input', appData.rollbackRange)
+    },
+    testFunc: function() {
+        let screens = document.querySelectorAll('.screen')
+
+        screens.forEach(function(screen) {
+            const select = screen.querySelector('select')
+            const input = screen.querySelector('input')
+            const selectValue = +select.value;
+            const inputValue = +input.value;
+            if (selectValue == '' || inputValue == '') {
+                pageButtonStart.disabled = true;
+            } else {
+                pageButtonStart.disabled = false;
+            }
+            console.log(selectValue, typeof selectValue);
+            console.log(inputValue, typeof inputValue);
+        }),
+        appData.start()
     },
     addTitle: function () {
         document.title = siteTitle.textContent;
     },
     noWay: function () {
-        let select = document.querySelector('select');
-        
-        if (select.selectedIndex = 0) {
-            pageButtonStart.disabled = true;
-        } else {
-            pageButtonStart.disabled = false;
-        }     
+        let screens = document.querySelectorAll('.screen')
+
+        appData.emptyFields = false;
+
+        screens.forEach(function(screen) {
+            const select = screen.querySelector('select')
+            const input = screen.querySelector('input')
+            if (select.value === '' || input.value === '') {
+                appData.emptyFields = true;
+            } 
+        })
+        if (!appData.emptyFields) {
+            appData.start()
+        }
     },
     start: function () {
         appData.addScreens();
