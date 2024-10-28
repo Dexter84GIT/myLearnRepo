@@ -41,24 +41,6 @@ const appData = {
         plusButton.addEventListener('click', appData.addScreenBlock)
         pageRange.addEventListener('input', appData.rollbackRange)
     },
-    testFunc: function() {
-        let screens = document.querySelectorAll('.screen')
-
-        screens.forEach(function(screen) {
-            const select = screen.querySelector('select')
-            const input = screen.querySelector('input')
-            const selectValue = +select.value;
-            const inputValue = +input.value;
-            if (selectValue == '' || inputValue == '') {
-                pageButtonStart.disabled = true;
-            } else {
-                pageButtonStart.disabled = false;
-            }
-            console.log(selectValue, typeof selectValue);
-            console.log(inputValue, typeof inputValue);
-        }),
-        appData.start()
-    },
     addTitle: function () {
         document.title = siteTitle.textContent;
     },
