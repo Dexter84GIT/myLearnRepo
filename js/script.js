@@ -12,11 +12,11 @@ const pageRange = document.querySelector('.rollback input[type=range]')
 
 const pageRangeValue = document.querySelector('.rollback span.range-value')
 
-const pageInputTotal =  document.getElementsByClassName('total-input')[0]
-const pageInputTotalScreens =  document.getElementsByClassName('total-input')[1]
-const pageInputTotalCountOther =  document.getElementsByClassName('total-input')[2]
-const pageInputTotalFullCount =  document.getElementsByClassName('total-input')[3]
-const pageInputTotalCountRollback =  document.getElementsByClassName('total-input')[4]
+const pageInputTotal = document.getElementsByClassName('total-input')[0]
+const pageInputTotalScreens = document.getElementsByClassName('total-input')[1]
+const pageInputTotalCountOther = document.getElementsByClassName('total-input')[2]
+const pageInputTotalFullCount = document.getElementsByClassName('total-input')[3]
+const pageInputTotalCountRollback = document.getElementsByClassName('total-input')[4]
 
 let pageScreen = document.querySelectorAll('.screen')
 
@@ -35,8 +35,8 @@ const appData = {
     servicesNumber: {},
     emptyFields: false,
     init: function () {
-        appData.addTitle();
-        appData.noWay();
+        this.addTitle();
+        this.noWay();
         pageButtonStart.addEventListener('click', appData.noWay)
         plusButton.addEventListener('click', appData.addScreenBlock)
         pageRange.addEventListener('input', appData.rollbackRange)
@@ -49,23 +49,52 @@ const appData = {
 
         appData.emptyFields = false;
 
-        screens.forEach(function(screen) {
+        screens.forEach(screen => {
             const select = screen.querySelector('select')
             const input = screen.querySelector('input')
             if (select.value === '' || input.value === '') {
                 appData.emptyFields = true;
-            } 
+            }
         })
         if (!appData.emptyFields) {
             appData.start()
         }
     },
     start: function () {
-        appData.addScreens();
-        appData.addServices();
-        appData.addPrices();
-        appData.logger();
-        appData.showResult();
+        this.addScreens();
+        this.addServices();
+        this.addPrices();
+        this.logger();
+        this.showResult();
+    },
+    reset: function () {
+        this.blockInputs()
+        this.nullValues()
+        this.changeButton()
+        this.deleteEvents()
+    },
+    blockInputs: function () { 
+        const select = document.querySelectorAll('select');
+        const textInputs = document.querySelectorAll('input[type=text]')
+        select.forEach(sel => {
+            sel.disabled = true
+        })
+        textInputs.forEach(input => {
+            input.disabled = true;
+        })
+    },
+    changeButton: function () {
+        pageButtonStart.style.display = 'none';
+        pageButtonReset.style.display = 'block';
+    },
+    nullValues: function () { 
+        appData.screenPrice = 0
+    },
+    deleteEvents: function () {
+        pageButtonStart.removeEventListener('click', appData.noWay)
+        plusButton.removeEventListener('click', appData.addScreenBlock)
+        pageRange.removeEventListener('input', appData.rollbackRange)
+//        pageButtonReset.removeEventListener('click', replaceElements)
     },
     rollbackRange: function () {
         pageRangeValue.textContent = `${pageRange.value}%`;
@@ -73,28 +102,28 @@ const appData = {
     },
     showResult: function () {
         pageInputTotal.value = appData.screenPrice
-
         pageInputTotalCountOther.value = appData.servicePricesNumber + appData.servicePricesPercent
         pageInputTotalFullCount.value = appData.fullPrice
+        this.reset()
     },
     addScreens: function () {
         pageScreen = document.querySelectorAll('.screen');
 
-        pageScreen.forEach(function (screen, index) {
+        pageScreen.forEach((screen, index) => {
             const select = screen.querySelector('select');
             const input = screen.querySelector('input');
-            const selectName = select.options[select.selectedIndex].textContent; 
+            const selectName = select.options[select.selectedIndex].textContent;
 
-            appData.screens.push({ 
-                id: index, 
-                name: selectName, 
-                price: +select.value * +input.value, 
+            appData.screens.push({
+                id: index,
+                name: selectName,
+                price: +select.value * +input.value,
                 count: +input.value
-            })           
-        }) 
+            })
+        })
     },
     addServices: function () {
-        percentItems.forEach(function (item) {
+        percentItems.forEach(item => {
             const check = item.querySelector('input[type=checkbox]')
             const label = item.querySelector('label')
             const input = item.querySelector('input[type=text]')
@@ -104,7 +133,7 @@ const appData = {
             }
 
         })
-        numberItems.forEach(function (item) {
+        numberItems.forEach(item => {
             const check = item.querySelector('input[type=checkbox]')
             const label = item.querySelector('label')
             const input = item.querySelector('input[type=text]')
@@ -116,7 +145,7 @@ const appData = {
     },
     addScreenBlock: function () {
         const cloneScreen = pageScreen[0].cloneNode(true)
-        pageScreen[pageScreen.length - 1].after(cloneScreen);       
+        pageScreen[pageScreen.length - 1].after(cloneScreen);
     },
     addPrices: function () {
         pageInputTotalScreens.value = null;
