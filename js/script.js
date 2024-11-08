@@ -40,6 +40,7 @@ const appData = {
         pageButtonStart.addEventListener('click', appData.noWay)
         plusButton.addEventListener('click', appData.addScreenBlock)
         pageRange.addEventListener('input', appData.rollbackRange)
+        pageButtonReset.addEventListener('click', appData.reset)
     },
     addTitle: function () {
         document.title = siteTitle.textContent;
@@ -64,14 +65,15 @@ const appData = {
         this.addScreens();
         this.addServices();
         this.addPrices();
+        this.changeButton()
         this.logger();
         this.showResult();
+        this.blockInputs()
     },
     reset: function () {
-        this.blockInputs()
-        this.nullValues()
-        this.changeButton()
-        this.deleteEvents()
+        appData.changeButton
+        appData.nullValues()
+        appData.deleteEvents()
     },
     blockInputs: function () { 
         const select = document.querySelectorAll('select');
@@ -88,7 +90,27 @@ const appData = {
         pageButtonReset.style.display = 'block';
     },
     nullValues: function () { 
-        appData.screenPrice = 0
+        const select = document.querySelectorAll('select');
+        const textInputs = document.querySelectorAll('input[type=text]')
+        const results = document.querySelectorAll('.main-total__items input')
+        const checkbox = document.querySelectorAll('input[type=checkbox]')
+        if (appData.screens.length >= 1) {
+            appData.screens.shift(1)
+        }
+        select.forEach(sel => {
+            sel.disabled = false
+        })
+        textInputs.forEach(input => {
+            input.disabled = false;
+        })
+        results.forEach(res => {
+            res.value = 0
+        })
+        pageButtonStart.style.display = 'block';
+        pageButtonReset.style.display = 'none';
+        checkbox.forEach(check => {
+            check.checked = false;
+        })
     },
     deleteEvents: function () {
         pageButtonStart.removeEventListener('click', appData.noWay)
@@ -104,7 +126,6 @@ const appData = {
         pageInputTotal.value = appData.screenPrice
         pageInputTotalCountOther.value = appData.servicePricesNumber + appData.servicePricesPercent
         pageInputTotalFullCount.value = appData.fullPrice
-        this.reset()
     },
     addScreens: function () {
         pageScreen = document.querySelectorAll('.screen');
