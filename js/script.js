@@ -100,7 +100,9 @@ const appData = {
         const screensRow = document.querySelectorAll('.screen')
 
             screensRow.forEach(screen => {
-                screen.remove()
+                for (let i = screensRow.length - 1; i >= 1; i--) {
+                    screen.remove()
+                }
             })
         appData.screens = []
         appData.screenPrice = 0
