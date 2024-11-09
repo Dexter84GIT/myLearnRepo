@@ -71,9 +71,10 @@ const appData = {
         this.blockInputs()
     },
     reset: function () {
-        appData.changeButton
+        this.changeButton
         appData.nullValues()
         appData.deleteEvents()
+        appData.init()
     },
     blockInputs: function () { 
         const select = document.querySelectorAll('select');
@@ -82,8 +83,9 @@ const appData = {
             sel.disabled = true
         })
         textInputs.forEach(input => {
-            input.disabled = true;
+            input.disabled = true
         })
+        plusButton.disabled = true
     },
     changeButton: function () {
         pageButtonStart.style.display = 'none';
@@ -94,17 +96,26 @@ const appData = {
         const textInputs = document.querySelectorAll('input[type=text]')
         const results = document.querySelectorAll('.main-total__items input')
         const checkbox = document.querySelectorAll('input[type=checkbox]')
-        if (appData.screens.length >= 1) {
-            appData.screens.shift(1)
-        }
+//        const screens = appData.screens
+        const screensRow = document.querySelectorAll('.screen')
+
+            screensRow.forEach(screen => {
+                screen.remove()
+            })
+        appData.screens = []
+        appData.screenPrice = 0
+        plusButton.disabled = false
         select.forEach(sel => {
             sel.disabled = false
+            sel.selectedIndex = 0
         })
         textInputs.forEach(input => {
             input.disabled = false;
+            input.value = 0
         })
         results.forEach(res => {
-            res.value = 0
+            res.disabled = false
+            res.value = 0          
         })
         pageButtonStart.style.display = 'block';
         pageButtonReset.style.display = 'none';
@@ -116,7 +127,6 @@ const appData = {
         pageButtonStart.removeEventListener('click', appData.noWay)
         plusButton.removeEventListener('click', appData.addScreenBlock)
         pageRange.removeEventListener('input', appData.rollbackRange)
-//        pageButtonReset.removeEventListener('click', replaceElements)
     },
     rollbackRange: function () {
         pageRangeValue.textContent = `${pageRange.value}%`;
