@@ -38,8 +38,8 @@ const appData = {
         this.noWay();
         pageButtonStart.addEventListener('click', this.noWay)
         plusButton.addEventListener('click', this.addScreenBlock)
-        pageRange.addEventListener('input', this.rollbackRange)
-        pageButtonReset.addEventListener('click', this.reset)
+        pageRange.addEventListener('input', this.rollbackRange.bind(appData))
+        pageButtonReset.addEventListener('click', this.reset.bind(appData))
     },
     addTitle: function () {
         document.title = siteTitle.textContent;
@@ -70,11 +70,10 @@ const appData = {
         this.blockInputs();
     },
     reset: function () {
-//        appData.reset.call(appData)
         this.changeButton();
         this.nullValues();
         this.deleteEvents();
-        this.init();
+        this.init();   
     },
     blockInputs: function () { 
         const select = document.querySelectorAll('select');
@@ -130,12 +129,8 @@ const appData = {
         pageRange.removeEventListener('input', this.rollbackRange)
     },
     rollbackRange: function () {
-        let thisRoll = appData.rollbackRange.bind(appData)
-        console.log(thisRoll);
-        console.log(this);
-        
         pageRangeValue.textContent = `${pageRange.value}%`;
-        appData.rollback = pageRange.value
+        this.rollback = pageRange.value
     },
     showResult: function () {
         pageInputTotal.value = this.screenPrice
@@ -167,7 +162,6 @@ const appData = {
             if (check.checked) {
                 this.servicesPercent[label.textContent] = +input.value
             }
-
         })
         numberItems.forEach(item => {
             const check = item.querySelector('input[type=checkbox]')
@@ -208,9 +202,6 @@ const appData = {
 
     }
 }
-// const bindMePlease = appData.reset.bind(appData)
-// bindMePlease() 
-
 appData.init();
 
 
