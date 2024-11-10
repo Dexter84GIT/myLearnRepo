@@ -36,8 +36,8 @@ const appData = {
     init: function () {
         this.addTitle();
         this.noWay();
-        pageButtonStart.addEventListener('click', this.noWay)
-        plusButton.addEventListener('click', this.addScreenBlock)
+        pageButtonStart.addEventListener('click', this.noWay.bind(appData))
+        plusButton.addEventListener('click', this.addScreenBlock.bind(appData))
         pageRange.addEventListener('input', this.rollbackRange.bind(appData))
         pageButtonReset.addEventListener('click', this.reset.bind(appData))
     },
